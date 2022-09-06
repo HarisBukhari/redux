@@ -15,33 +15,41 @@ export class MyCounterComponent {
 
   count$: Observable<number>;
   name$: Observable<string>;
-  nameRef: string="404"
- 
+  nameRef: string
+
   constructor(private store: Store<{ count: CounterState }>) {
     //i Removing the interface from the constructor 
     // this.count$ = store.select('count')
     // this.name$ = store.select('count')
+
+    // pipe the store into the componentInstance
+    // this.count$ = store.pipe(select(getCounter));
+    // this.name$ = store.pipe(select(getName));
+
+    //Subscription to the store changes the counter state
     // store.select('count').subscribe(count => {
     //   this.name = count.name
     // })
-      this.count$ = store.select(getCounter)
-      this.name$ = store.select(getName)
+
+    this.nameRef = "404"
+    this.count$ = store.select(getCounter)
+    this.name$ = store.select(getName)
   }
- 
+
   increment() {
     this.store.dispatch(increment());
   }
- 
+
   decrement() {
     this.store.dispatch(decrement());
   }
- 
+
   reset() {
     this.store.dispatch(reset());
   }
 
-  add(){
-    this.store.dispatch(chageName({name: this.nameRef}))
+  add() {
+    this.store.dispatch(chageName({ name: this.nameRef }))
   }
 
 } 
