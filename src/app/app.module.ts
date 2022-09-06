@@ -14,7 +14,7 @@ import { FormsModule } from '@angular/forms';
   declarations: [
     AppComponent,
     MyCounterComponent,
-    AddCustomValComponent
+    AddCustomValComponent,
   ],
   imports: [
     BrowserModule,

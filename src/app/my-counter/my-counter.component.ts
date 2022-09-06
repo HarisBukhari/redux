@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Store, select } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { increment, decrement, reset } from '../Redux_Name/Name.actions';
+import { increment, decrement, reset, chageName } from '../Redux_Name/Name.actions';
 import { CounterState } from '../Redux_Name/Name.state';
 
 @Component({
@@ -12,11 +12,16 @@ import { CounterState } from '../Redux_Name/Name.state';
 
 export class MyCounterComponent {
 
-  count$: Observable<CounterState>;
+  count$: Observable<{num: number}>;
+  name: string="404"
+  nameRef: string="404"
  
-  constructor(private store: Store<{ count: {num: number} }>) {
+  constructor(private store: Store<{ count: CounterState }>) {
     //i Removing the interface from the constructor 
     this.count$ = store.select('count')
+    store.select('count').subscribe(count => {
+      this.name = count.name
+    })
   }
  
   increment() {
@@ -29,6 +34,10 @@ export class MyCounterComponent {
  
   reset() {
     this.store.dispatch(reset());
+  }
+
+  add(){
+    this.store.dispatch(chageName({name: this.nameRef}))
   }
 
 } 
