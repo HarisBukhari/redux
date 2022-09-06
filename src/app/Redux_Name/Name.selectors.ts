@@ -1,5 +1,14 @@
-import { createFeatureSelector } from "@ngrx/store";
-import { count } from "console";
-import {initialState} from "./Name.state"
+import { createFeatureSelector, createSelector } from "@ngrx/store";
+import { CounterState } from "./Name.state";
 
-// const getCounterState = createFeatureSelector<initialState>("count")
+
+
+const getNameState = createFeatureSelector<CounterState>('count')
+
+export const getCounter = createSelector(getNameState, state => {
+    return state.num;
+})
+
+export const getName = createSelector(getNameState, state => {
+    return state.name;
+})
