@@ -14,7 +14,8 @@ export class MyCounterComponent {
 
   count$: Observable<CounterState>;
  
-  constructor(private store: Store<{ count: CounterState }>) {
+  constructor(private store: Store<{ count: {num: number} }>) {
+    //i Removing the interface from the constructor 
     this.count$ = store.select('count')
   }
  

@@ -11,7 +11,7 @@ import { CounterState } from '../Redux_Name/Name.state';
 export class AddCustomValComponent implements OnInit {
 
   value: number
-  constructor(private store: Store<{ count: CounterState }>) { }
+  constructor(private store: Store<{ count: {num:number} }>) { }
 
   ngOnInit(): void {
   }
