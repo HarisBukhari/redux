@@ -1,1 +1,157 @@
-<p>post-list works!</p>
+<div class="container-fluid">
+    <div class="row justify-content-center">
+        <div class="col-9">
+            <h1>All Posts</h1>
+            <!-- Button trigger modal -->
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModalToggle">
+                Add Post
+            </button>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Title</th>
+                        <th>Content</th>
+                        <th>Author</th>
+                        <th>Tags</th>
+                        <th>Comments</th>
+                        <th>Date</th>
+                        <th>Likes</th>
+                        <th>Liked</th>
+                        <th>Comments Count</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let post of posts$ |async">
+                        <td> {{post.id}}</td>
+                        <td> {{post.title}}</td>
+                        <td> {{post.content}}</td>
+                        <td> {{post.author}}</td>
+                        <td>
+                            <div *ngFor="let tag of post.tags">
+                                <ul>
+                                    <li>{{tag}}</li>
+                                </ul>
+                            </div>
+                        </td>
+                        <td>
+                            <div *ngFor="let comment of post.comments">
+                                <ul>
+                                    <li>{{comment}}</li>
+                                </ul>
+                            </div>
+                        </td>
+                        <td> {{post.date}}</td>
+                        <td> {{post.likes}}</td>
+                        <td> {{post.liked}}</td>
+                        <td> {{post.commentsCount}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<form [formGroup]="ReactiveForm" (ngSubmit)="onSubmit()">
+    <div class="modal fade" id="exampleModalToggle" aria-hidden="true" aria-labelledby="exampleModalToggleLabel"
+        tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalToggleLabel">Modal 1</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div formGroupName="Post">
+                        <div class="mb-3">
+                            <label for="ID" class="form-label">ID</label>
+                            <input type="email" class="form-control" id="ID" aria-describedby="emailHelp"
+                                formControlName="id">
+                        </div>
+                        <div class="mb-3">
+                            <label for="title" class="form-label">Title</label>
+                            <input type="text" class="form-control" id="title" formControlName="title">
+                        </div>
+                        <div class="mb-3">
+                            <label for="content" class="form-label">Content</label>
+                            <input type="text" class="form-control" id="content" formControlName="content">
+                        </div>
+                        <div class="mb-3">
+                            <label for="Author" class="form-label">Author</label>
+                            <input type="text" class="form-control" id="Author" formControlName="author">
+                        </div>
+                        <button class="btn btn-primary" data-bs-target="#exampleModalToggle2" data-bs-toggle="modal"
+                            data-bs-dismiss="modal" (click)="addComments()" type="button">Add Comments</button>
+                        <div class="mb-3">
+                            <label for="Date" class="form-label">Date</label>
+                            <input type="date" class="form-control" id="Date" formControlName="date">
+                        </div>
+                        <div class="mb-3">
+                            <label for="Likes" class="form-label">Likes</label>
+                            <input type="number" class="form-control" id="Likes" formControlName="likes">
+                        </div>
+                        <div class="mb-3 form-check">
+                            <input type="checkbox" class="form-check-input" id="Liked" formControlName="liked">
+                            <label class="form-check-label" for="exampleCheck1">Liked</label>
+                        </div>
+                        <div class="mb-3">
+                            <label for="CommentsCount" class="form-label">Comments Count</label>
+                            <input type="number" class="form-control" id="CommentsCount"
+                                formControlName="commentsCount">
+                        </div>
+                    </div>
+                    <button class="btn btn-success mb-2" (click)="addTags()" type="button">
+                        Add Tag
+                    </button>
+                    <div formArrayName="tags">
+                        <ng-container *ngFor="let tag of ReactiveForm.get('tags')['controls']; index as i">
+                            <div [formGroupName]="i">
+                                <div class="mb-3">
+                                    <label for="tag" class="form-label">Tag</label>
+                                    <input type="text" class="form-control" placeholder="Tags" formControlName="tag">
+                                </div>
+                                <button class="btn btn-danger mb-2" (click)="deleteTag(i)" type="button">Delete</button>
+                            </div>
+                        </ng-container>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" type="button">Close</button>
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal" (click)="show()"
+                        type="submit">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="exampleModalToggle2" aria-hidden="true" aria-labelledby="exampleModalToggleLabel2"
+        tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalToggleLabel2">Add Comments</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <button class="btn btn-warning mb-2" (click)="addComments()" type="button">
+                        Add Comments
+                    </button>
+                    <div formArrayName="comments">
+                        <ng-container *ngFor="let comment of ReactiveForm.get('comments')['controls']; index as i">
+                            <div [formGroupName]="i">
+                                <div class="mb-3">
+                                    <label for="comment" class="form-label">Comments</label>
+                                    <input type="text" class="form-control" placeholder="Comment"
+                                        formControlName="comment">
+                                </div>
+                                <button class="btn btn-danger" (click)="deleteComment(i)" type="button">Delete</button>
+                            </div>
+                        </ng-container>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-primary" data-bs-target="#exampleModalToggle" data-bs-toggle="modal"
+                        data-bs-dismiss="modal" type="button">Back to Post</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
