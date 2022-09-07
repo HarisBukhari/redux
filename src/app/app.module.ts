@@ -9,12 +9,16 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from '../environments/environment';
 import { AddCustomValComponent } from './add-custom-val/add-custom-val.component';
 import { FormsModule } from '@angular/forms';
+import { PostListComponent } from './post/post-list/post-list.component';
+import { HomeComponent } from './home/home.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     MyCounterComponent,
     AddCustomValComponent,
+    PostListComponent,
+    HomeComponent,
   ],
   imports: [
     BrowserModule,
