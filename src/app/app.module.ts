@@ -11,6 +11,7 @@ import { AddCustomValComponent } from './add-custom-val/add-custom-val.component
 import { FormsModule } from '@angular/forms';
 import { PostListComponent } from './post/post-list/post-list.component';
 import { HomeComponent } from './home/home.component';
+import { appReducer } from './store/app.state';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,7 @@ import { HomeComponent } from './home/home.component';
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    StoreModule.forRoot({ count: counterReducer }),
+    StoreModule.forRoot(appReducer),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production })
   ],
   providers: [],

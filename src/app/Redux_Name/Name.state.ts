@@ -4,6 +4,7 @@ export interface CounterState {
     name: string;
 }
 
+
 export const initialState: CounterState = {
     num:0,
     name: "Zotac",
