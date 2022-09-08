@@ -51,6 +51,8 @@ export class PostListComponent implements OnInit {
 
   reset() {
     this.ReactiveForm.reset()
+    this.clearFormArray(<FormArray>this.ReactiveForm.get('tags'))
+    this.clearFormArray(<FormArray>this.ReactiveForm.get('comments'))
   }
 
   addTags() {
@@ -107,8 +109,6 @@ export class PostListComponent implements OnInit {
     let post = this.data.filter(function (e) {
       return e.id == id;
     })
-    this.clearFormArray(<FormArray>this.ReactiveForm.get('tags'))
-    this.clearFormArray(<FormArray>this.ReactiveForm.get('comments'))
     post[0].tags.forEach(element => {
       (<FormArray>this.ReactiveForm.get('tags')).push(new FormGroup({
         tag: new FormControl(element),
