@@ -14,6 +14,7 @@ import { getPosts } from '../State/Post.selectors';
 export class PostListComponent implements OnInit {
   ReactiveForm: FormGroup;
   posts$: Observable<Post[]>
+  A: String[]
 
   constructor(private store: Store<appState>) {
     this.posts$ = store.select(getPosts);
@@ -58,12 +59,25 @@ export class PostListComponent implements OnInit {
     (<FormArray>this.ReactiveForm.get('comments')).removeAt(commentNum)
   }
 
-  show() {
-    console.log("clicked")
-  }
-
   onSubmit() {
-    console.log(this.ReactiveForm)
+    // console.log(this.ReactiveForm)
+    const post: Post = {
+      id: this.ReactiveForm.value.Post.id,
+      title: this.ReactiveForm.value.Post.title,
+      content: this.ReactiveForm.value.Post.content,
+      author: this.ReactiveForm.value.Post.author,
+      tags: (this.ReactiveForm.controls['tags'].value).map((value) => {
+        return value.tag
+      }),
+      comments: (this.ReactiveForm.controls['comments'].value).map((value) => {
+        return value.comment
+      }),
+      date: this.ReactiveForm.value.Post.date,
+      likes: this.ReactiveForm.value.Post.likes,
+      liked: this.ReactiveForm.value.Post.liked,
+      commentsCount: this.ReactiveForm.value.Post.commentsCount
+    }
+    console.log(post)
   }
 
 }
