@@ -51,7 +51,7 @@ export class PostListComponent implements OnInit {
     }
   }
 
-  addpost(){
+  addpost() {
     this.isEdit = false
     this.reset()
   }
@@ -82,7 +82,7 @@ export class PostListComponent implements OnInit {
     (<FormArray>this.ReactiveForm.get('comments')).removeAt(commentNum)
   }
 
-  fetchPost(){
+  fetchPost() {
     const post: Post = {
       id: this.ReactiveForm.value.Post.id,
       title: this.ReactiveForm.value.Post.title,
@@ -108,7 +108,7 @@ export class PostListComponent implements OnInit {
     this.store.dispatch(addPost({ post }))
     this.reset()
   }
-  
+
   convert(str) {
     var date = new Date(str),
       mnth = ("0" + (date.getMonth() + 1)).slice(-2),
@@ -119,22 +119,25 @@ export class PostListComponent implements OnInit {
   showData(id: number) {
     this.isEdit = true;
     this.reset()
-    let post: Post= this.data.find(function (e) {
+    let post: Post = this.data.find(function (e) {
       return e.id == id;
     })
+    
     post.tags.forEach(element => {
       (<FormArray>this.ReactiveForm.get('tags')).push(new FormGroup({
         tag: new FormControl(element),
       }))
     })
+
     post.comments.forEach(element => {
       (<FormArray>this.ReactiveForm.get('comments')).push(new FormGroup({
         comment: new FormControl(element),
       }))
     })
+
     this.ReactiveForm.patchValue({
-      Post:{
-        id:post.id,
+      Post: {
+        id: post.id,
         title: post.title,
         content: post.content,
         author: post.author,
@@ -143,25 +146,20 @@ export class PostListComponent implements OnInit {
         liked: post.liked,
         commentsCount: post.commentsCount,
       },
-      tags:[
-        ...post.tags
-      ],
-      comments:[
-        ...post.comments
-      ]
+      tags: [...post.tags],
+      comments: [...post.comments]
     })
     this.post = post
   }
 
-  update(){
+  update() {
     this.ReactiveForm.reset(this.ReactiveForm.value)
     const post = this.fetchPost()
-    this.store.dispatch(updatePost({post}));
+    this.store.dispatch(updatePost({ post }));
   }
 
   delete(id: number) {
-    this.store.dispatch(deletePost({id}));
+    this.store.dispatch(deletePost({ id }));
   }
 
 }
-

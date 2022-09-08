@@ -10,6 +10,7 @@ import { AddCustomValComponent } from './add-custom-val/add-custom-val.component
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HomeComponent } from './home/home.component';
 import { appReducer } from './store/app.state';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { appReducer } from './store/app.state';
     ReactiveFormsModule,
     FormsModule,
     StoreModule.forRoot({}),
-    StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production })
+    StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
+    NgbModule
   ],
   providers: [],
   bootstrap: [AppComponent]
