@@ -1,9 +1,10 @@
 <div class="container-fluid">
     <div class="row justify-content-center">
-        <div class="col-9">
+        <div class="col-10">
             <h1>All Posts</h1>
             <!-- Button trigger modal -->
-            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModalToggle" (click)="reset()">
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModalToggle"
+                (click)="addpost()">
                 Add Post
             </button>
             <table class="table table-striped">
@@ -46,9 +47,10 @@
                         <td> {{post.likes}}</td>
                         <td> {{post.liked}}</td>
                         <td> {{post.commentsCount}}</td>
-                        <td> 
-                            <a  class="btn btn-secondary mx-2" data-bs-toggle="modal" data-bs-target="#exampleModalToggle" (click)="edit(post.id)">Update</a>
-                            <a  class="btn btn-danger" (click)="delete(post.id)">Delete</a>
+                        <td>
+                            <a class="btn btn-secondary mx-2" data-bs-toggle="modal"
+                                data-bs-target="#exampleModalToggle" (click)="showData(post.id)">Update</a>
+                            <a class="btn btn-danger" (click)="delete(post.id)">Delete</a>
                         </td>
                     </tr>
                 </tbody>
@@ -84,8 +86,9 @@
                             <label for="Author" class="form-label">Author</label>
                             <input type="text" class="form-control" id="Author" formControlName="author">
                         </div>
-                        <button class="btn btn-primary mb-2" data-bs-target="#exampleModalToggle2" data-bs-toggle="modal"
-                            data-bs-dismiss="modal" (click)="addComments()" type="button">Add Comments</button>
+                        <button class="btn btn-primary mb-2" data-bs-target="#exampleModalToggle2"
+                            data-bs-toggle="modal" data-bs-dismiss="modal" (click)="addComments()" type="button">Add
+                            Comments</button>
                         <div class="mb-3">
                             <label for="Date" class="form-label">Date</label>
                             <input type="date" class="form-control" id="Date" formControlName="date">
@@ -121,8 +124,12 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" type="button">Close</button>
-                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal" type="submit">Save
-                        changes</button>
+                    <ng-container *ngIf="!isEdit;else other_content">
+                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal" type="submit">Submit</button>
+                    </ng-container>
+                        <ng-template #other_content>
+                            <button type="button" class="btn btn-primary" data-bs-dismiss="modal" type="button" (click)="update()">Update</button>
+                        </ng-template>
                 </div>
             </div>
         </div>

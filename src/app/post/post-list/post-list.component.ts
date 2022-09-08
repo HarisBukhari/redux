@@ -4,7 +4,7 @@ import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { appState } from 'src/app/store/app.state';
 import { Post } from '../../Models/Post.model'
-import { addPost } from '../State/Post.action';
+import { addPost, deletePost, updatePost } from '../State/Post.action';
 import { getPosts } from '../State/Post.selectors';
 
 @Component({
@@ -17,6 +17,8 @@ export class PostListComponent implements OnInit {
   posts$: Observable<Post[]>
   data: Post[]
   A: String[]
+  isEdit: boolean = false
+  post: Post
 
   constructor(private store: Store<appState>) {
     this.posts$ = store.select(getPosts);
@@ -49,6 +51,11 @@ export class PostListComponent implements OnInit {
     }
   }
 
+  addpost(){
+    this.isEdit = false
+    this.reset()
+  }
+
   reset() {
     this.ReactiveForm.reset()
     this.clearFormArray(<FormArray>this.ReactiveForm.get('tags'))
@@ -75,8 +82,7 @@ export class PostListComponent implements OnInit {
     (<FormArray>this.ReactiveForm.get('comments')).removeAt(commentNum)
   }
 
-  onSubmit() {
-    this.ReactiveForm.reset(this.ReactiveForm.value)
+  fetchPost(){
     const post: Post = {
       id: this.ReactiveForm.value.Post.id,
       title: this.ReactiveForm.value.Post.title,
@@ -93,6 +99,12 @@ export class PostListComponent implements OnInit {
       liked: this.ReactiveForm.value.Post.liked,
       commentsCount: this.ReactiveForm.value.Post.commentsCount
     }
+    return post
+  }
+
+  onSubmit() {
+    this.ReactiveForm.reset(this.ReactiveForm.value)
+    const post = this.fetchPost()
     this.store.dispatch(addPost({ post }))
     this.reset()
   }
@@ -104,46 +116,51 @@ export class PostListComponent implements OnInit {
     return [date.getFullYear(), mnth, day].join("-");
   }
 
-  edit(id: number) {
+  showData(id: number) {
+    this.isEdit = true;
     this.reset()
-    let post = this.data.filter(function (e) {
+    let post: Post= this.data.find(function (e) {
       return e.id == id;
     })
-    post[0].tags.forEach(element => {
+    post.tags.forEach(element => {
       (<FormArray>this.ReactiveForm.get('tags')).push(new FormGroup({
         tag: new FormControl(element),
       }))
     })
-    post[0].comments.forEach(element => {
+    post.comments.forEach(element => {
       (<FormArray>this.ReactiveForm.get('comments')).push(new FormGroup({
         comment: new FormControl(element),
       }))
     })
     this.ReactiveForm.patchValue({
       Post:{
-        id:post[0].id,
-        title: post[0].title,
-        content: post[0].content,
-        author: post[0].author,
-        date: this.convert(post[0].date),
-        likes: post[0].likes,
-        liked: post[0].liked,
-        commentsCount: post[0].commentsCount,
+        id:post.id,
+        title: post.title,
+        content: post.content,
+        author: post.author,
+        date: this.convert(post.date),
+        likes: post.likes,
+        liked: post.liked,
+        commentsCount: post.commentsCount,
       },
       tags:[
-        ...post[0].tags
+        ...post.tags
       ],
       comments:[
-        ...post[0].comments
+        ...post.comments
       ]
     })
-    console.log(post[0].tags)
-    console.log(this.ReactiveForm)
+    this.post = post
+  }
 
+  update(){
+    this.ReactiveForm.reset(this.ReactiveForm.value)
+    const post = this.fetchPost()
+    this.store.dispatch(updatePost({post}));
   }
 
   delete(id: number) {
-    alert(id)
+    this.store.dispatch(deletePost({id}));
   }
 
 }
