@@ -3,7 +3,6 @@ import { Store, select } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { increment, decrement, reset, chageName } from '../Redux_Name/Name.actions';
 import { getCounter, getName } from '../Redux_Name/Name.selectors';
-import { CounterState } from '../Redux_Name/Name.state';
 import { appState } from '../store/app.state';
 
 @Component({

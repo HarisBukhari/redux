@@ -1,25 +1,23 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
-import { PostListComponent } from './post-list/post-list.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { StoreModule } from '@ngrx/store';
-import { appReducer } from '../store/app.state';
-import { postReducer } from './State/Post.reducer';
+import { MyCounterComponent } from './my-counter.component';
+import { counterReducer } from '../Redux_Name/Name.reducer';
 
 const routes: Routes = [
-  { path: '', component: PostListComponent },
+  { path: '', component: MyCounterComponent },
 ];
 
 @NgModule({
   declarations: [
-    PostListComponent,
   ],
   imports: [
     CommonModule,
     RouterModule.forChild(routes),
     ReactiveFormsModule,
-    StoreModule.forFeature('posts', postReducer),
+    StoreModule.forFeature('count', counterReducer),
   ]
 })
-export class PostModule { }
+export class MyCounterModule { }
