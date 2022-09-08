@@ -4,6 +4,7 @@ import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { appState } from 'src/app/store/app.state';
 import { Post } from '../../Models/Post.model'
+import { addPost } from '../State/Post.action';
 import { getPosts } from '../State/Post.selectors';
 
 @Component({
@@ -77,6 +78,7 @@ export class PostListComponent implements OnInit {
       liked: this.ReactiveForm.value.Post.liked,
       commentsCount: this.ReactiveForm.value.Post.commentsCount
     }
+    this.store.dispatch(addPost({ post }))
     console.log(post)
   }
 
