@@ -15,11 +15,14 @@ import { getPosts } from '../State/Post.selectors';
 export class PostListComponent implements OnInit {
   ReactiveForm: FormGroup;
   posts$: Observable<Post[]>
+  data: Post[]
   A: String[]
 
   constructor(private store: Store<appState>) {
     this.posts$ = store.select(getPosts);
-
+    this.posts$.subscribe(data => {
+      this.data = data;
+    })
   }
 
   ngOnInit(): void {
@@ -38,6 +41,16 @@ export class PostListComponent implements OnInit {
       comments: new FormArray([]),
     })
 
+  }
+
+  clearFormArray = (formArray: FormArray) => {
+    while (formArray.length !== 0) {
+      formArray.removeAt(0)
+    }
+  }
+
+  reset() {
+    this.ReactiveForm.reset()
   }
 
   addTags() {
@@ -61,7 +74,7 @@ export class PostListComponent implements OnInit {
   }
 
   onSubmit() {
-    // console.log(this.ReactiveForm)
+    this.ReactiveForm.reset(this.ReactiveForm.value)
     const post: Post = {
       id: this.ReactiveForm.value.Post.id,
       title: this.ReactiveForm.value.Post.title,
@@ -79,7 +92,58 @@ export class PostListComponent implements OnInit {
       commentsCount: this.ReactiveForm.value.Post.commentsCount
     }
     this.store.dispatch(addPost({ post }))
-    console.log(post)
+    this.reset()
+  }
+  
+  convert(str) {
+    var date = new Date(str),
+      mnth = ("0" + (date.getMonth() + 1)).slice(-2),
+      day = ("0" + date.getDate()).slice(-2);
+    return [date.getFullYear(), mnth, day].join("-");
+  }
+
+  edit(id: number) {
+    this.reset()
+    let post = this.data.filter(function (e) {
+      return e.id == id;
+    })
+    this.clearFormArray(<FormArray>this.ReactiveForm.get('tags'))
+    this.clearFormArray(<FormArray>this.ReactiveForm.get('comments'))
+    post[0].tags.forEach(element => {
+      (<FormArray>this.ReactiveForm.get('tags')).push(new FormGroup({
+        tag: new FormControl(element),
+      }))
+    })
+    post[0].comments.forEach(element => {
+      (<FormArray>this.ReactiveForm.get('comments')).push(new FormGroup({
+        comment: new FormControl(element),
+      }))
+    })
+    this.ReactiveForm.patchValue({
+      Post:{
+        id:post[0].id,
+        title: post[0].title,
+        content: post[0].content,
+        author: post[0].author,
+        date: this.convert(post[0].date),
+        likes: post[0].likes,
+        liked: post[0].liked,
+        commentsCount: post[0].commentsCount,
+      },
+      tags:[
+        ...post[0].tags
+      ],
+      comments:[
+        ...post[0].comments
+      ]
+    })
+    console.log(post[0].tags)
+    console.log(this.ReactiveForm)
+
+  }
+
+  delete(id: number) {
+    alert(id)
   }
 
 }

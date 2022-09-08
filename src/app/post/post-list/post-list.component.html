@@ -3,7 +3,7 @@
         <div class="col-9">
             <h1>All Posts</h1>
             <!-- Button trigger modal -->
-            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModalToggle">
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModalToggle" (click)="reset()">
                 Add Post
             </button>
             <table class="table table-striped">
@@ -19,6 +19,7 @@
                         <th>Likes</th>
                         <th>Liked</th>
                         <th>Comments Count</th>
+                        <th>Actions</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -45,6 +46,10 @@
                         <td> {{post.likes}}</td>
                         <td> {{post.liked}}</td>
                         <td> {{post.commentsCount}}</td>
+                        <td> 
+                            <a  class="btn btn-secondary mx-2" data-bs-toggle="modal" data-bs-target="#exampleModalToggle" (click)="edit(post.id)">Update</a>
+                            <a  class="btn btn-danger" (click)="delete(post.id)">Delete</a>
+                        </td>
                     </tr>
                 </tbody>
             </table>
@@ -53,11 +58,11 @@
 </div>
 <form [formGroup]="ReactiveForm" (ngSubmit)="onSubmit()">
     <div class="modal fade" id="exampleModalToggle" aria-hidden="true" aria-labelledby="exampleModalToggleLabel"
-        tabindex="-1">
+        tabindex="-1" data-backdrop="static" data-keyboard="false">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalToggleLabel">Modal 1</h5>
+                    <h5 class="modal-title" id="exampleModalToggleLabel">Add Post</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
@@ -79,7 +84,7 @@
                             <label for="Author" class="form-label">Author</label>
                             <input type="text" class="form-control" id="Author" formControlName="author">
                         </div>
-                        <button class="btn btn-primary" data-bs-target="#exampleModalToggle2" data-bs-toggle="modal"
+                        <button class="btn btn-primary mb-2" data-bs-target="#exampleModalToggle2" data-bs-toggle="modal"
                             data-bs-dismiss="modal" (click)="addComments()" type="button">Add Comments</button>
                         <div class="mb-3">
                             <label for="Date" class="form-label">Date</label>
