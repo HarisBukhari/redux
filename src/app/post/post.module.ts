@@ -6,6 +6,8 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { StoreModule } from '@ngrx/store';
 import { appReducer } from '../store/app.state';
 import { postReducer } from './State/Post.reducer';
+import { EffectsModule } from '@ngrx/effects';
+import { AuthEffects } from './State/auth.effects';
 
 const routes: Routes = [
   { path: '', component: PostListComponent },
@@ -20,6 +22,7 @@ const routes: Routes = [
     RouterModule.forChild(routes),
     ReactiveFormsModule,
     StoreModule.forFeature('posts', postReducer),
+    EffectsModule.forFeature([AuthEffects]),
   ]
 })
 export class PostModule { }

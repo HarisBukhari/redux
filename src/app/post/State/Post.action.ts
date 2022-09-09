@@ -1,5 +1,6 @@
 import { createAction, props } from '@ngrx/store';
 import { Post } from 'src/app/Models/Post.model';
+import { User } from 'src/app/Models/user.model';
 
 export const ADD_POST_ACTION = '[post page] add post';
 export const UPDATE_POST_ACTION = '[post page] update post';
@@ -14,6 +15,7 @@ export const updatePost = createAction(UPDATE_POST_ACTION, props<{ post: Post}>(
 export const deletePost = createAction( DELETE_POST_ACTION, props<{ id: number}>());
 
 export const loginStart = createAction(LOGIN_START, props<{ email: string; password: string}>());
+export const loginSucess = createAction(LOGIN_SUCESS, props<{ user: User}>());
 
 
 // export const decrement = createAction('Decrement');

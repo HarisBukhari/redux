@@ -1,9 +1,11 @@
 import { Post } from "src/app/Models/Post.model";
+import { User } from "src/app/Models/user.model";
 
 
 export interface PostState {
     Posts: Post[];
     Login: {};
+    user: User | null;
 }
 
 export const initialState: PostState = {
@@ -33,5 +35,6 @@ export const initialState: PostState = {
             commentsCount: 25,
         },
     ],
-    Login: {}
+    Login: {},
+    user: null
 };

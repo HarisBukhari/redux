@@ -4,7 +4,7 @@ import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { appState } from 'src/app/store/app.state';
 import { Post } from '../../Models/Post.model'
-import { addPost, deletePost, updatePost } from '../State/Post.action';
+import { addPost, deletePost, loginStart, updatePost } from '../State/Post.action';
 import { getPosts } from '../State/Post.selectors';
 
 @Component({
@@ -166,8 +166,10 @@ export class PostListComponent implements OnInit {
     this.store.dispatch(deletePost({ id }));
   }
 
-  login(){
-    console.log(this.ReactiveForm.value)
+  login() {
+    const email = this.ReactiveForm.value.login.email
+    const password = this.ReactiveForm.value.login.password
+    this.store.dispatch(loginStart({ email, password }));
   }
 
 }
