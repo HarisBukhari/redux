@@ -3,6 +3,7 @@ import { Post } from "src/app/Models/Post.model";
 
 export interface PostState {
     Posts: Post[];
+    Login: {};
 }
 
 export const initialState: PostState = {
@@ -31,5 +32,6 @@ export const initialState: PostState = {
             liked: true,
             commentsCount: 25,
         },
-    ]
+    ],
+    Login: {}
 };

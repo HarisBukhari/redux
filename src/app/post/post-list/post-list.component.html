@@ -1,7 +1,18 @@
 <div class="container-fluid">
     <div class="row justify-content-center">
         <div class="col-10">
-            <h1>All Posts</h1>
+            <div class="row justify-content-between">
+                <div class="col-3">
+                <h1>All Posts</h1>
+                </div>
+                <!-- Button trigger modal -->
+                <div class="col-1 mt-2">
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#login">
+                        Login
+                    </button>
+                </div>
+            </div>
+            <!-- !!!!!!!!!!!!! -->
             <!-- Button trigger modal -->
             <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModalToggle"
                 (click)="addpost()">
@@ -58,7 +69,7 @@
         </div>
     </div>
 </div>
-<form [formGroup]="ReactiveForm" (ngSubmit)="onSubmit()">
+<form [formGroup]="ReactiveForm">
     <div class="modal fade" id="exampleModalToggle" aria-hidden="true" aria-labelledby="exampleModalToggleLabel"
         tabindex="-1" data-backdrop="static" data-keyboard="false">
         <div class="modal-dialog modal-dialog-centered">
@@ -125,11 +136,13 @@
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" type="button">Close</button>
                     <ng-container *ngIf="!isEdit;else other_content">
-                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal" type="submit">Submit</button>
+                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal"
+                            type="button" (click)="onSubmit()">Submit</button>
                     </ng-container>
-                        <ng-template #other_content>
-                            <button type="button" class="btn btn-primary" data-bs-dismiss="modal" type="button" (click)="update()">Update</button>
-                        </ng-template>
+                    <ng-template #other_content>
+                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal" type="button"
+                            (click)="update()">Update</button>
+                    </ng-template>
                 </div>
             </div>
         </div>
@@ -142,7 +155,7 @@
                     <h5 class="modal-title" id="exampleModalToggleLabel2">Add Comments</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="modal-body">
+                <div class="modal-body anyClass">
                     <button class="btn btn-warning mb-2" (click)="addComments()" type="button">
                         Add Comments
                     </button>
@@ -162,6 +175,35 @@
                 <div class="modal-footer">
                     <button class="btn btn-primary" data-bs-target="#exampleModalToggle" data-bs-toggle="modal"
                         data-bs-dismiss="modal" type="button">Back to Post</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- login Modal -->
+    <div class="modal fade" id="login" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Login</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div formGroupName="login">
+                        <div class="mb-3">
+                          <label for="exampleInputEmail1" class="form-label">Email address</label>
+                          <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" formControlName="email">
+                          <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+                        </div>
+                        <div class="mb-3">
+                          <label for="exampleInputPassword1" class="form-label">Password</label>
+                          <input type="password" class="form-control" id="exampleInputPassword1" formControlName="password">
+                        </div>
+                        <div class="mb-3 form-check">
+                          <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                          <label class="form-check-label" for="exampleCheck1">Check me out</label>
+                        </div>
+                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal" (click)="login()">Login</button>
+                    </div>
                 </div>
             </div>
         </div>

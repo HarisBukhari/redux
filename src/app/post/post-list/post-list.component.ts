@@ -39,6 +39,10 @@ export class PostListComponent implements OnInit {
         liked: new FormControl(null, Validators.required),
         commentsCount: new FormControl(null, Validators.required),
       }),
+      login: new FormGroup({
+        email: new FormControl(null, Validators.required),
+        password: new FormControl(null, Validators.required),
+      }),
       tags: new FormArray([]),
       comments: new FormArray([]),
     })
@@ -122,7 +126,7 @@ export class PostListComponent implements OnInit {
     let post: Post = this.data.find(function (e) {
       return e.id == id;
     })
-    
+
     post.tags.forEach(element => {
       (<FormArray>this.ReactiveForm.get('tags')).push(new FormGroup({
         tag: new FormControl(element),
@@ -160,6 +164,10 @@ export class PostListComponent implements OnInit {
 
   delete(id: number) {
     this.store.dispatch(deletePost({ id }));
+  }
+
+  login(){
+    console.log(this.ReactiveForm.value)
   }
 
 }
