@@ -1,24 +1,24 @@
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { exhaustMap, map } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
-import { loginStart, loginSucess } from './Post.action';
+import { getjobs, jobsApi } from './new.action';
 import { DataService } from 'src/app/Service/data.service';
 
 @Injectable()
 
-export class AuthEffects {
+export class NewEffects {
   constructor(private actions$: Actions, private data: DataService) { }
-  login$ = createEffect((): any => {
+  jobs$ = createEffect((): any => {
     return this.actions$.pipe(
-      ofType(loginStart),
+      ofType(jobsApi),
       exhaustMap((action) => {
-        return this.data.login(action.email, action.password).pipe(
+        return this.data.check(action.id).pipe(
           map((data) => {
-            const user = this.data.formatUser(data)
-            return loginSucess({ user });
+            data = this.data.formatJob(data)
+            return getjobs({data})
           })
         );
       })
     );
   });
-} 
+}  

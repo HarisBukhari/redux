@@ -5,4 +5,5 @@ export interface jobs {
     status: string;
     description: string;
     creadtedBy: string;
+    id: number;
 }

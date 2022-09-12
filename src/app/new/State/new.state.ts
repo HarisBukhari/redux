@@ -13,7 +13,8 @@ export const initialState: JobState = {
             author: "string",
             status: "string",
             description: "string",
-            creadtedBy: "string"
+            creadtedBy: "string",
+            id:1
         },
     ]
 }
