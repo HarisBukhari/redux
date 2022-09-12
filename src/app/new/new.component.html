@@ -1,0 +1,21 @@
+<h1>Jobs Info</h1>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Company</th>
+            <th>Position</th>
+            <th>Status</th>
+            <th>Description</th>
+            <th>Author</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let job of jobs$ |async">
+            <td> {{job.company}}</td>
+            <td> {{job.position}}</td>
+            <td> {{job.status}}</td>
+            <td> {{job.description}}</td>
+            <td> {{job.creadtedBy}}</td>
+        </tr>
+    </tbody>
+</table>

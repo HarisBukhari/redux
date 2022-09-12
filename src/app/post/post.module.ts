@@ -4,7 +4,6 @@ import { RouterModule, Routes } from '@angular/router';
 import { PostListComponent } from './post-list/post-list.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { StoreModule } from '@ngrx/store';
-import { appReducer } from '../store/app.state';
 import { postReducer } from './State/Post.reducer';
 import { EffectsModule } from '@ngrx/effects';
 import { AuthEffects } from './State/auth.effects';
