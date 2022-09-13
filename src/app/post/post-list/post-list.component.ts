@@ -3,6 +3,7 @@ import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { appState } from 'src/app/store/app.state';
+import { updateSpinner } from 'src/app/store/shared/shared.actions';
 import { Post } from '../../Models/Post.model'
 import { addPost, deletePost, loginStart, updatePost } from '../State/Post.action';
 import { getPosts } from '../State/Post.selectors';
@@ -19,6 +20,8 @@ export class PostListComponent implements OnInit {
   A: String[]
   isEdit: boolean = false
   post: Post
+
+  isLoading$: Observable<boolean>
 
   constructor(private store: Store<appState>) {
     this.posts$ = store.select(getPosts);
@@ -170,6 +173,7 @@ export class PostListComponent implements OnInit {
     const email = this.ReactiveForm.value.login.email
     const password = this.ReactiveForm.value.login.password
     this.store.dispatch(loginStart({ email, password }));
+    this.store.dispatch(updateSpinner({spinner: true}));
   }
 
 }

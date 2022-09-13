@@ -12,6 +12,7 @@ import { HomeComponent } from './home/home.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { EffectsModule } from '@ngrx/effects';
 import {HttpClientModule} from '@angular/common/http';
+import { appReducer } from './store/app.state';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,7 @@ import {HttpClientModule} from '@angular/common/http';
     ReactiveFormsModule,
     FormsModule,
     HttpClientModule,
-    StoreModule.forRoot({}),
+    StoreModule.forRoot(appReducer),
     EffectsModule.forRoot([]),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
     NgbModule

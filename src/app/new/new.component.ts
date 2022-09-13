@@ -3,6 +3,7 @@ import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { jobs } from '../Models/jobs.model';
 import { appState } from '../store/app.state';
+import { updateSpinner } from '../store/shared/shared.actions';
 import { addJob, jobsApi, updateJob } from './State/new.action';
 import { getJobs } from './State/new.selector';
 
@@ -36,6 +37,7 @@ export class NewComponent implements OnInit {
   check(){
     const id = "62dc2ab3cd412946f4c575af"
     this.store.dispatch(jobsApi({ id }));
+    this.store.dispatch(updateSpinner({spinner: false}));
   }
 
 

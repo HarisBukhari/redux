@@ -9,6 +9,8 @@ import { User } from '../Models/user.model';
   providedIn: 'root'
 })
 export class DataService {
+  isLoading: boolean = false;
+
   job = {
     company: "",
     position: "string",
@@ -45,6 +47,14 @@ export class DataService {
     this.job.creadtedBy = data.job.createdBy
     this.job.id = data.job._id
     return this.job
+  }
+
+  isLoadingGetter() {
+    return this.isLoading
+  }
+
+  isLoadingSetter() {
+    this.isLoading = !this.isLoading
   }
 
 }

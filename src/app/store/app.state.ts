@@ -1,18 +1,11 @@
-import { postReducer } from "../post/State/Post.reducer";
-import { PostState } from "../post/State/Post.state";
-import { counterReducer } from "../Redux_Name/Name.reducer";
-import { CounterState } from "../Redux_Name/Name.state";
-import { JobState } from "../new/State/new.state";
-import { jobReducer } from "../new/State/new.reducer";
+import { stateName } from "./shared/shared.selector"
+import { sharedState } from "./shared/shared.state"
+import { getSpinner } from "./shared/shared.reducer"
 
 export interface appState {
-    count: CounterState,
-    posts: PostState,
-    jobs: JobState
+    [stateName]: sharedState
 }
 
 export const appReducer = {
-    count: counterReducer,
-    posts: postReducer,
-    jobs: jobReducer
+    [stateName]: getSpinner
 }

@@ -3,7 +3,7 @@
         <div class="col-10">
             <div class="row justify-content-between">
                 <div class="col-3">
-                <h1>All Posts</h1>
+                    <h1>All Posts</h1>
                 </div>
                 <!-- Button trigger modal -->
                 <div class="col-1 mt-2">
@@ -136,8 +136,8 @@
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" type="button">Close</button>
                     <ng-container *ngIf="!isEdit;else other_content">
-                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal"
-                            type="button" (click)="onSubmit()">Submit</button>
+                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal" type="button"
+                            (click)="onSubmit()">Submit</button>
                     </ng-container>
                     <ng-template #other_content>
                         <button type="button" class="btn btn-primary" data-bs-dismiss="modal" type="button"
@@ -190,19 +190,24 @@
                 <div class="modal-body">
                     <div formGroupName="login">
                         <div class="mb-3">
-                          <label for="exampleInputEmail1" class="form-label">Email address</label>
-                          <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" formControlName="email">
-                          <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+                            <label for="exampleInputEmail1" class="form-label">Email address</label>
+                            <input type="email" class="form-control" id="exampleInputEmail1"
+                                aria-describedby="emailHelp" formControlName="email">
+                            <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
                         </div>
                         <div class="mb-3">
-                          <label for="exampleInputPassword1" class="form-label">Password</label>
-                          <input type="password" class="form-control" id="exampleInputPassword1" formControlName="password">
+                            <label for="exampleInputPassword1" class="form-label">Password</label>
+                            <input type="password" class="form-control" id="exampleInputPassword1"
+                                formControlName="password">
                         </div>
                         <div class="mb-3 form-check">
-                          <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                          <label class="form-check-label" for="exampleCheck1">Check me out</label>
+                            <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                            <label class="form-check-label" for="exampleCheck1">Check me out</label>
                         </div>
-                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal" (click)="login()">Login</button>
+                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal" (click)="login()">
+                            <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                            Loading...
+                            Login</button>
                     </div>
                 </div>
             </div>
