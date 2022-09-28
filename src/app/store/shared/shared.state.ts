@@ -4,5 +4,5 @@ export interface sharedState {
 }
 
 export const initialState: sharedState = {
-    spinner: false  
+    spinner: true  
 }

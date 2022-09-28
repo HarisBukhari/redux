@@ -7,9 +7,16 @@
                 </div>
                 <!-- Button trigger modal -->
                 <div class="col-1 mt-2">
-                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#login">
-                        Login
-                    </button>
+                    <div *ngIf="isLoading$ | async ; else loginInit">
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#login">
+                            Login
+                        </button>
+                    </div>
+                    <ng-template #loginInit>
+                        <button type="button" class="btn btn-danger" (click)="logout()">
+                            Logout
+                        </button>
+                    </ng-template>
                 </div>
             </div>
             <!-- !!!!!!!!!!!!! -->
@@ -205,9 +212,13 @@
                             <label class="form-check-label" for="exampleCheck1">Check me out</label>
                         </div>
                         <button type="button" class="btn btn-primary" data-bs-dismiss="modal" (click)="login()">
-                            <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-                            Loading...
-                            Login</button>
+                            login
+                            <!-- <div *ngIf="isLoading$ |async ; else login">
+                                <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                                Loading...
+                            </div>
+                            <ng-template #login>Login</ng-template> -->
+                            </button>
                     </div>
                 </div>
             </div>

@@ -24,4 +24,4 @@ const routes: Routes = [
     EffectsModule.forFeature([NewEffects]),
   ]
 })
-export class NewModule { }
+ export class NewModule { }

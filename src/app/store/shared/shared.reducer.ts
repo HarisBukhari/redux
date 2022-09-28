@@ -5,7 +5,7 @@ import { initialState } from "./shared.state";
 const _getSpinner = createReducer(initialState,
     on(updateSpinner, (state, action) => {
         return {
-            state,
+            ...state,
             spinner: action.spinner
         }
     }),

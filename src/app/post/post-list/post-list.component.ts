@@ -4,6 +4,7 @@ import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { appState } from 'src/app/store/app.state';
 import { updateSpinner } from 'src/app/store/shared/shared.actions';
+import { getSpinner } from 'src/app/store/shared/shared.selector';
 import { Post } from '../../Models/Post.model'
 import { addPost, deletePost, loginStart, updatePost } from '../State/Post.action';
 import { getPosts } from '../State/Post.selectors';
@@ -28,6 +29,7 @@ export class PostListComponent implements OnInit {
     this.posts$.subscribe(data => {
       this.data = data;
     })
+    this.isLoading$ = store.select(getSpinner)
   }
 
   ngOnInit(): void {
@@ -173,6 +175,10 @@ export class PostListComponent implements OnInit {
     const email = this.ReactiveForm.value.login.email
     const password = this.ReactiveForm.value.login.password
     this.store.dispatch(loginStart({ email, password }));
+    this.store.dispatch(updateSpinner({spinner: false}));
+  }
+
+  logout() {
     this.store.dispatch(updateSpinner({spinner: true}));
   }
 

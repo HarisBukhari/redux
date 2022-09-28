@@ -37,7 +37,6 @@ export class NewComponent implements OnInit {
   check(){
     const id = "62dc2ab3cd412946f4c575af"
     this.store.dispatch(jobsApi({ id }));
-    this.store.dispatch(updateSpinner({spinner: false}));
   }
 
 
